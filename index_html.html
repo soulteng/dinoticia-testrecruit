@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Dinoticia — 경력직 채용</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif;background:#0a0a0a;color:#e8e8e8;overflow-x:hidden}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
+.reveal.show{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+section{padding:6rem 0}
+.tag{display:inline-block;background:rgba(234,91,12,.1);border:1px solid rgba(234,91,12,.4);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#ea5b0c;margin-bottom:1.4rem}
+.sec-title{font-size:clamp(22px,3.5vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.2;margin-bottom:.8rem;color:#f5f5f5}
+.grad{background:linear-gradient(135deg,#fff 30%,#ea5b0c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.divider{width:60px;height:2px;background:#ea5b0c;opacity:.7;border-radius:2px;margin:1rem 0 2rem}
+.sub{color:#666;line-height:1.8;max-width:560px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem}
+.btn-main{background:#ea5b0c;color:#fff;border:none;border-radius:10px;padding:16px 32px;font-size:16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:10px;letter-spacing:.02em;transition:transform .3s,box-shadow .3s}
+.btn-main:hover{transform:scale(1.03);box-shadow:0 8px 30px rgba(234,91,12,.45)}
+.btn-ghost{background:transparent;color:#e8e8e8;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .3s}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(234,91,12,.5);color:#ea5b0c}
+.circuit{position:absolute;inset:0;width:100%;height:100%;opacity:.05;pointer-events:none}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem 1.5rem;overflow:hidden}
+#hero h1{font-size:clamp(28px,5vw,64px);font-weight:900;line-height:1.15;margin-bottom:1.8rem;letter-spacing:-.03em;color:#f5f5f5}
+.sub2{font-size:clamp(15px,2vw,19px);color:#555;margin-bottom:3rem;line-height:1.9}
+.scroll-arr{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);opacity:.25;animation:floatY 2.2s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* VIDEO */
+.video-ph{position:relative;border-radius:16px;overflow:hidden;margin:3rem 0;aspect-ratio:16/9;cursor:pointer;border:1px solid rgba(255,255,255,.1);transition:border-color .3s}
+.video-ph:hover{border-color:rgba(255,255,255,.3)}
+.yt-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);transition:background .3s;display:flex;align-items:center;justify-content:center}
+.video-ph:hover .yt-overlay{background:rgba(0,0,0,.15)}
+
+/* STATS */
+.stat-card{display:flex;align-items:flex-start;gap:1rem;transition:all .3s}
+.stat-card:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
+.stat-icon{background:rgba(255,255,255,.05);border-radius:10px;padding:10px;display:flex;flex-shrink:0}
+.stat-label{font-size:12px;color:#555;margin-bottom:.3rem;letter-spacing:.05em}
+.stat-val{font-size:24px;font-weight:800;color:#f5f5f5}
+.tech-badges{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.5rem}
+.tech-badge{background:rgba(234,91,12,.06);border:1px solid rgba(234,91,12,.2);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;color:#ea5b0c;opacity:.8}
+
+/* JOBS */
+#jobs{background:#111;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.job-card{border-left:2px solid rgba(234,91,12,.3);transition:all .3s}
+.job-card:hover{border-left-color:#ea5b0c;transform:translateY(-4px)}
+.job-label{font-size:11px;font-weight:700;letter-spacing:.1em;color:#666;margin-bottom:2px}
+.job-title{font-size:18px;font-weight:800;color:#f5f5f5}
+.job-desc{color:#555;font-size:14px;line-height:1.75;margin-bottom:1.2rem}
+.chk{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:#999}
+
+/* JOB FILTER */
+.cat-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;color:#777;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cat-btn:hover{border-color:rgba(234,91,12,.4);color:#ea5b0c}
+.cat-btn.active{background:rgba(234,91,12,.12);border-color:rgba(234,91,12,.6);color:#ea5b0c}
+.jcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.4rem;transition:all .25s;cursor:pointer;display:flex;flex-direction:column;gap:.75rem}
+.jcard:hover{border-color:rgba(234,91,12,.35);background:rgba(234,91,12,.04);transform:translateY(-2px)}
+.jcat-tag{display:inline-block;background:rgba(234,91,12,.08);border:1px solid rgba(234,91,12,.2);border-radius:5px;padding:2px 8px;font-size:11px;font-weight:600;color:#ea5b0c}
+.jcard-meta{font-size:12px;color:#444;display:flex;align-items:center;gap:5px}
+.jcard-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.06)}
+
+/* INTERVIEW */
+.icard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column}
+.icard:hover{border-color:rgba(234,91,12,.4);transform:translateY(-4px)}
+.icard-photo-ph{width:100%;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111,#1e1e1e);position:relative}
+.icard-body{padding:1.4rem;display:flex;flex-direction:column;flex:1}
+.icard-quote{font-size:13px;color:#555;line-height:1.7;margin-bottom:1.2rem;font-style:italic;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.icard-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
+
+/* COFFEE */
+#coffee{position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);text-align:center;background:#000;padding:7rem 0}
+.coffee-btn{background:#ea5b0c;color:#fff;border:none;border-radius:14px;padding:20px 48px;font-size:18px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:12px;transition:transform .3s,box-shadow .3s}
+.coffee-btn:hover{transform:scale(1.03);box-shadow:0 8px 40px rgba(234,91,12,.5)}
+.proof-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 16px;font-size:13px;color:#555}
+
+/* MODAL BASE */
+.modal-bg{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:1.5rem}
+.modal-bg.open{display:flex}
+
+/* JD POPUP */
+.jd-popup{background:#111;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:min(720px,100%);max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.jd-popup-hdr{padding:1.5rem 1.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.jd-popup-title{font-size:20px;font-weight:800;color:#f5f5f5;margin-bottom:.5rem;line-height:1.3}
+.jd-popup-body{overflow-y:auto;padding:1.8rem;flex:1}
+.jd-popup-body::-webkit-scrollbar{width:4px}
+.jd-popup-body::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.jd-section{margin-bottom:2rem}
+.jd-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ea5b0c;margin-bottom:.8rem;display:flex;align-items:center;gap:8px}
+.jd-section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+.jd-intro{font-size:15px;color:#94a3b8;line-height:1.85}
+.jd-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.jd-list li{font-size:14px;color:#888;line-height:1.7;display:flex;align-items:flex-start;gap:10px}
+.jd-list li::before{content:'—';color:#444;flex-shrink:0;margin-top:1px}
+.jd-benefit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.5rem}
+.jd-benefit-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:8px 12px;font-size:12px;color:#666;display:flex;align-items:center;gap:6px}
+.jd-popup-footer{padding:1.2rem 1.8rem;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:#0d0d0d}
+.jd-apply-btn{background:#ea5b0c;color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .3s}
+.jd-apply-btn:hover{transform:scale(1.03);box-shadow:0 4px 20px rgba(234,91,12,.45)}
+.jd-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.jd-close:hover{background:rgba(255,255,255,.15)}
+
+/* IV MODAL */
+.iv-box{background:#111;border:1px solid rgba(255,255,255,.1);border-radius:20px;width:min(720px,100%);max-height:90vh;overflow-y:auto;position:relative}
+.iv-box::-webkit-scrollbar{width:4px}
+.iv-box::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.iv-header{display:flex;align-items:center;gap:1.2rem;padding:2rem 2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.iv-avatar{width:64px;height:64px;border-radius:50%;background:#1e1e1e;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#ccc;flex-shrink:0}
+.iv-content{padding:1.8rem 2rem 2rem}
+.iv-qblock{margin-bottom:1.8rem}
+.iv-q{font-size:14px;font-weight:700;color:#fff;margin-bottom:.75rem;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.iv-qbadge{background:rgba(255,255,255,.08);border-radius:5px;padding:1px 8px;font-size:11px;font-weight:700;color:#aaa;flex-shrink:0;margin-top:1px}
+.iv-a{font-size:14px;color:#666;line-height:1.85;padding-left:1.5rem;border-left:2px solid rgba(255,255,255,.08);margin-left:.5rem}
+.iv-close,.vid-close{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.iv-close:hover,.vid-close:hover{background:rgba(255,255,255,.15)}
+
+/* VID MODAL */
+.vid-modal{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:1.5rem}
+.vid-modal.open{display:flex}
+
+footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem;text-align:center}
+</style>
+</head>
+<body>
+
+<svg style="display:none">
+  <defs>
+    <pattern id="cp" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M10 60L45 60L45 25L80 25M80 25L115 25M80 60L80 95L115 95M45 60L45 95L10 95" stroke="#fff" stroke-width="1" fill="none"/>
+      <circle cx="45" cy="60" r="3" fill="#fff"/><circle cx="80" cy="25" r="3" fill="#fff"/>
+      <circle cx="80" cy="95" r="3" fill="#fff"/>
+      <rect x="74" y="19" width="12" height="12" rx="2" fill="none" stroke="#fff" stroke-width="1"/>
+      <rect x="74" y="89" width="12" height="12" rx="2" fill="none" stroke="#fff" stroke-width="1"/>
+    </pattern>
+  </defs>
+</svg>
+
+<!-- ── 1. HERO ── -->
+<section id="hero">
+  <svg class="circuit"><rect width="100%" height="100%" fill="url(#cp)"/></svg>
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)"></div>
+  <div style="position:relative;z-index:1;max-width:900px;padding:0 1.5rem">
+    <div class="reveal" style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:3rem">
+      <div style="width:1px;height:20px;background:rgba(255,255,255,.2)"></div>
+      <img src="https://opening-attachments.greetinghr.com/2024-10-04/01e600ed-810a-4aeb-9b48-7008d6d9d8d9/44x.png"
+           alt="Dnotitia" id="hero-logo"
+           style="height:28px;width:auto;display:block;filter:brightness(0) invert(1)"
+           onerror="this.style.display='none';document.getElementById('hero-logo-fallback').style.display='flex'"/>
+      <div id="hero-logo-fallback" style="display:none;align-items:center;gap:6px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+        <span style="font-size:13px;font-weight:700;letter-spacing:.2em;color:#aaa">DINOTICIA</span>
+      </div>
+      <span style="color:#ea5b0c;opacity:.6">·</span>
+      <span style="font-size:12px;color:#aaa;letter-spacing:.08em">SEMICONDUCTOR DESIGN</span>
+      <div style="width:1px;height:20px;background:rgba(255,255,255,.2)"></div>
+    </div>
+    <div class="reveal d1"><span class="tag">🔥 경력직 채용 진행 중 — Senior / Lead Engineer</span></div>
+    <div class="reveal d2">
+      <h1>압도적인 성과급이<br>채워주지 못하는<br>엔지니어의       <span style="text-decoration:underline;text-decoration-color:#ea5b0c;text-underline-offset:6px">'마지막 1%'</span>,<br><span class="grad">디노티시아에서 완성하십시오.</span></h1>
+    </div>
+    <div class="reveal d3">
+      <p class="sub2" style="margin:0 auto 3rem">설계부터 양산까지, 당신의 이름이 새겨진<br><strong style="color:#bbb">차세대 반도체</strong>를 세상에 내놓을 골든 타임입니다.</p>
+      <button class="btn-main">디노티시아 기술 로드맵 확인하기 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="scroll-arr"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+</section>
+
+<!-- ── 2. COMPANY ── -->
+<section style="border-top:1px solid rgba(255,255,255,.06)">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag">COMPANY HIGHLIGHT 2024</span>
+      <h2 class="sec-title">글로벌 수준의 기술이<br><span class="grad">이미 검증되었습니다.</span></h2>
+      <div class="divider"></div>
+      <p class="sub">CXL 3.0 풀스택 레퍼런스 설계와 PIM 아키텍처를 보유한 국내 유일의 독립 반도체 설계 스타트업입니다.</p>
+    </div>
+    <!-- 회사 소개 카드 -->
+    <div class="reveal d1" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;margin:3rem 0 0">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.8rem">
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#555;margin-bottom:.5rem">ABOUT DNOTITIA</p>
+          <p style="font-size:22px;font-weight:800;color:#f5f5f5">디노티시아 소개</p>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(234,91,12,.08);border:1px solid rgba(234,91,12,.3);border-radius:20px;padding:7px 16px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ea5b0c" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span style="font-size:12px;font-weight:600;color:#ea5b0c">CB Insights 글로벌 AI 100 선정</span>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:1.8rem"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0">
+        <!-- 기업 정체성 -->
+        <div style="padding:0 1.5rem 0 0;border-right:1px solid rgba(255,255,255,.07)">
+          <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <p style="font-size:14px;font-weight:800;color:#f5f5f5;margin-bottom:.6rem">기업 정체성</p>
+          <p style="font-size:13px;color:#555;line-height:1.75">AI와 데이터 시스템의 융합으로 새로운 가치를 만드는<br>장기기억 인공지능 전문기업</p>
+        </div>
+        <!-- 핵심 기술 -->
+        <div style="padding:0 1.5rem;border-right:1px solid rgba(255,255,255,.07)">
+          <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <p style="font-size:14px;font-weight:800;color:#f5f5f5;margin-bottom:.6rem">핵심 기술</p>
+          <p style="font-size:13px;color:#555;line-height:1.75">VDPU 기반 Seahorse로 RAG 구현 / DNA와 Mnemos로 개인화된 AI 경험 제공</p>
+        </div>
+        <!-- 기술 경쟁력 -->
+        <div style="padding:0 1.5rem;border-right:1px solid rgba(255,255,255,.07)">
+          <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+          </div>
+          <p style="font-size:14px;font-weight:800;color:#f5f5f5;margin-bottom:.6rem">기술 경쟁력</p>
+          <p style="font-size:13px;color:#555;line-height:1.75">벡터 DB 처리 특화 반도체 기술과 최적화 알고리즘 통합</p>
+        </div>
+        <!-- 비전 -->
+        <div style="padding:0 0 0 1.5rem">
+          <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
+          </div>
+          <p style="font-size:14px;font-weight:800;color:#f5f5f5;margin-bottom:.6rem">비전</p>
+          <p style="font-size:13px;color:#555;line-height:1.75">누구나 쉽게 인공지능을 활용할 수 있는 AGI의 미래</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal d1 video-ph" id="vthumb" onclick="openVid()">
+      <img src="https://img.youtube.com/vi/fHi82NdMYDQ/maxresdefault.jpg" alt="홍보영상" style="width:100%;height:100%;object-fit:cover;display:block"/>
+      <div class="yt-overlay"><svg width="80" height="56" viewBox="0 0 80 56"><rect width="80" height="56" rx="12" fill="rgba(255,0,0,0.85)"/><polygon points="32,16 60,28 32,40" fill="white"/></svg></div>
+    </div>
+    <div class="grid2 reveal d2">
+      <div class="card stat-card"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div><p class="stat-label">누적 투자 유치</p><p class="stat-val">₩120억+</p></div></div>
+      <div class="card stat-card"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><p class="stat-label">기술 파트너사</p><p class="stat-val">14곳</p></div></div>
+      <div class="card stat-card"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><p class="stat-label">핵심 특허 보유</p><p class="stat-val">32건</p></div></div>
+      <div class="card stat-card"><div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><div><p class="stat-label">시리즈 A 준비</p><p class="stat-val">2025 Q3</p></div></div>
+    </div>
+    <div class="tech-badges reveal d3">
+      <span class="tech-badge">CXL 3.0</span><span class="tech-badge">PIM Architecture</span><span class="tech-badge">TSMC 5nm</span><span class="tech-badge">HBM3E Interface</span><span class="tech-badge">AI Accelerator</span><span class="tech-badge">RISC-V Core</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── 복리후생 ── -->
+<section style="padding:5rem 0;border-bottom:1px solid rgba(255,255,255,.06)">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag">BENEFITS</span>
+      <h2 class="sec-title">함께 일하는 방식이<br><span class="grad">보상이 됩니다.</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:2rem">
+      <div class="reveal d1" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">주식매수선택권</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">시리즈 A 이전 합류자 대상 스톡옵션 지급. 성장의 과실을 함께 나눕니다.</p>
+      </div>
+      <div class="reveal d1" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">자율 출퇴근제</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">코어타임 없는 완전 자율 출퇴근. 성과로 증명하는 문화입니다.</p>
+      </div>
+      <div class="reveal d1" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">최신 장비 지원</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">MacBook Pro M4, 4K 모니터 등 원하는 장비를 제한 없이 선택합니다.</p>
+      </div>
+      <div class="reveal d2" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">도서 구매비 지원</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">월 한도 없는 기술 도서 및 온라인 강의 구매를 지원합니다.</p>
+      </div>
+      <div class="reveal d2" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">연차 자유 사용</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">눈치 없이 자유롭게. 충전이 곧 성과로 이어진다고 믿습니다.</p>
+      </div>
+      <div class="reveal d2" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">정기 건강검진</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">연 1회 종합 건강검진 및 4대 보험 완비. 구성원 건강을 최우선합니다.</p>
+      </div>
+      <div class="reveal d3" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">팀 워크샵 지원</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">분기별 팀 오프사이트 및 컨퍼런스 참가비 전액을 지원합니다.</p>
+      </div>
+      <div class="reveal d3" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;transition:all .3s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <p style="font-size:14px;font-weight:700;color:#e8e8e8;margin-bottom:4px">커피챗 문화</p>
+        <p style="font-size:12px;color:#555;line-height:1.6">입사 전 리드 엔지니어와 1:1 커피챗. 입사 후에도 열린 소통을 유지합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. JOBS ── -->
+<section id="jobs">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag">OPEN POSITION</span>
+      <h2 class="sec-title">우리는 부품을 구하지 않습니다.<br><span class="grad">설계자를 구합니다.</span></h2>
+      <div class="divider"></div>
+      <p class="sub">당신의 경험이 정당하게 평가받고, 오너십이 주어지는 자리입니다.</p>
+    </div>
+    <div class="grid3" style="margin-top:3rem">
+      <div class="reveal d1 card job-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem"><div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px;display:flex"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><p class="job-label">Direct Impact</p><p class="job-title">권한과 책임</p></div></div>
+        <p class="job-desc">당신의 설계 결정이 곧 제품입니다. 회의실 승인 없이, 당신의 RTL이 GDSII가 되는 경험을 드립니다.</p>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full-chip 아키텍처 의사결정권</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>고객사 직접 기술 협의</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>스펙 정의부터 테이프아웃까지</div>
+      </div>
+      <div class="reveal d2 card job-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem"><div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px;display:flex"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><p class="job-label">Full-Stack Experience</p><p class="job-title">기술적 성장</p></div></div>
+        <p class="job-desc">RTL 설계부터 Back-end, Verification까지 반도체 풀스택을 경험할 수 있는 유일한 환경입니다.</p>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>CXL 3.0 / PIM 아키텍처</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>TSMC 5nm 공정 경험</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>AI 워크로드 특화 설계</div>
+      </div>
+      <div class="reveal d3 card job-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem"><div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px;display:flex"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><p class="job-label">Equity Advantage</p><p class="job-title">미래 가치</p></div></div>
+        <p class="job-desc">현금 보상 그 이상. 시리즈 A 이전 스톡옵션으로 당신이 만든 가치를 당신의 자산으로 돌려드립니다.</p>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>경쟁력 있는 스톡옵션 패키지</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>시리즈 A 밸류업 직전 합류</div>
+        <div class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>글로벌 엑싯 로드맵 공유</div>
+      </div>
+    </div>
+
+    <!-- 직무 필터 -->
+    <div class="reveal d2" style="margin-top:4rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem">
+        <div><p style="font-weight:800;font-size:20px;color:#f5f5f5;margin-bottom:4px">모집 직무</p><p style="font-size:13px;color:#555">카테고리를 복수 선택하면 해당 포지션만 표시됩니다</p></div>
+        <span id="job-count" style="font-size:13px;color:#555"></span>
+      </div>
+      <div id="cat-wrap" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem"></div>
+      <div id="job-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. INTERVIEW ── -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag">ENGINEER INTERVIEW</span>
+      <h2 class="sec-title">이미 선택한 엔지니어들이<br><span class="grad">직접 말합니다.</span></h2>
+      <div class="divider"></div>
+      <p class="sub">대기업의 관료주의를 벗어나 내 설계가 즉시 반영되는 쾌감 — 세 분의 리얼 인터뷰.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem">
+      <div class="reveal d1 icard" onclick="openIV(0)">
+        <div class="icard-photo-ph"><div style="width:72px;height:72px;border-radius:50%;background:#222;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#ccc">김</div></div>
+        <div class="icard-body">
+          <p class="icard-quote">"제 RTL이 2주 안에 시뮬레이션 결과로 돌아옵니다. 이 속도감은 돈으로 환산할 수 없어요."</p>
+          <p style="font-size:15px;font-weight:700;color:#e8e8e8;margin-bottom:2px">김○○</p><p style="font-size:12px;color:#555">수석 설계 엔지니어</p><p style="font-size:11px;color:#333;margin-top:4px">前 삼성전자 DS부문 · 7년</p>
+          <div class="icard-footer"><div style="display:flex;gap:2px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span style="font-size:12px;color:#888;display:flex;align-items:center;gap:4px;font-weight:600">인터뷰 전문 읽기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+        </div>
+      </div>
+      <div class="reveal d2 icard" onclick="openIV(1)">
+        <div class="icard-photo-ph"><div style="width:72px;height:72px;border-radius:50%;background:#222;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#ccc">이</div></div>
+        <div class="icard-body">
+          <p class="icard-quote">"스톡옵션 가치가 실현되는 날을 상상했고, 그게 저만의 '성과급'이 된 거죠."</p>
+          <p style="font-size:15px;font-weight:700;color:#e8e8e8;margin-bottom:2px">이○○</p><p style="font-size:12px;color:#555">시니어 PD 엔지니어</p><p style="font-size:11px;color:#333;margin-top:4px">前 SK하이닉스 DRAM 설계 · 5년</p>
+          <div class="icard-footer"><div style="display:flex;gap:2px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span style="font-size:12px;color:#888;display:flex;align-items:center;gap:4px;font-weight:600">인터뷰 전문 읽기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+        </div>
+      </div>
+      <div class="reveal d3 icard" onclick="openIV(2)">
+        <div class="icard-photo-ph"><div style="width:72px;height:72px;border-radius:50%;background:#222;border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#ccc">박</div></div>
+        <div class="icard-body">
+          <p class="icard-quote">"CXL 컨트롤러 전체를 오너십 가지고 설계합니다. 이 커리어 경험 자체가 리스크 헷지예요."</p>
+          <p style="font-size:15px;font-weight:700;color:#e8e8e8;margin-bottom:2px">박○○</p><p style="font-size:12px;color:#555">리드 아키텍트</p><p style="font-size:11px;color:#333;margin-top:4px">前 NVIDIA 코리아 · 4년</p>
+          <div class="icard-footer"><div style="display:flex;gap:2px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" opacity=".4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span style="font-size:12px;color:#888;display:flex;align-items:center;gap:4px;font-weight:600">인터뷰 전문 읽기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. COFFEE ── -->
+<section id="coffee">
+  <svg class="circuit"><rect width="100%" height="100%" fill="url(#cp)"/></svg>
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)"></div>
+  <div class="wrap" style="position:relative;z-index:1;text-align:center">
+    <div class="reveal"><span class="tag">☕ COFFEE CHAT</span>
+      <h2 style="font-size:clamp(24px,4vw,52px);font-weight:900;line-height:1.2;margin-bottom:1.5rem;letter-spacing:-.03em;color:#f5f5f5">이력서가 없어도 좋습니다.<br><span class="grad">기술적인 호기심만 가져오세요.</span></h2>
+    </div>
+    <div class="reveal d1">
+      <p style="font-size:clamp(15px,2vw,19px);color:#555;margin:0 auto 1rem;line-height:1.9;max-width:560px">리드 엔지니어와 1:1로 만나, CXL/PIM 설계 방향성과<br>당신의 커리어 고민을 편하게 나눠보세요.</p>
+      <p style="font-size:14px;color:#333;margin-bottom:3rem">채용 전환 압박 없음 · 비밀 보장 · 평일 점심 / 저녁 모두 가능</p>
+      <button class="coffee-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>커피챗 신청하기</button>
+      <p style="margin-top:1.2rem;font-size:12px;color:#2a2a2a">리드 엔지니어가 직접 24시간 내 응답합니다</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:3rem" class="reveal d2">
+      <span class="proof-chip">이번 달 커피챗 12건 완료</span><span class="proof-chip">평균 응답 시간 8시간</span><span class="proof-chip">채용 전환율 60%+</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:.5rem">
+    <img src="https://opening-attachments.greetinghr.com/2024-10-04/01e600ed-810a-4aeb-9b48-7008d6d9d8d9/44x.png"
+         alt="Dnotitia" style="height:20px;width:auto;opacity:.35"/>
+  </div>
+  <p style="font-size:12px;color:#222">© 2024 Dinoticia Inc. All rights reserved. · 서울시 강남구 테헤란로</p>
+</footer>
+
+<!-- ── JD 팝업 ── -->
+<div id="jd-modal" class="modal-bg" onclick="closeJD(event)">
+  <div class="jd-popup">
+    <div class="jd-popup-hdr">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div style="flex:1">
+          <p id="jd-type-badge" style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#666;margin-bottom:6px"></p>
+          <p class="jd-popup-title" id="jd-popup-title"></p>
+          <div id="jd-cat-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+        </div>
+        <button class="jd-close" onclick="closeJD({force:true})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div class="jd-popup-body" id="jd-popup-body"></div>
+    <div class="jd-popup-footer">
+      <p style="font-size:12px;color:#444">서류 → 1차 인터뷰 → 2차 인터뷰 → 레퍼런스 체크</p>
+      <a id="jd-apply-link" href="#" target="_blank"><button class="jd-apply-btn">지원하기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></a>
+    </div>
+  </div>
+</div>
+
+<!-- IV 모달 -->
+<div id="iv-modal" class="modal-bg" onclick="closeIV(event)">
+  <div class="iv-box">
+    <button class="iv-close" onclick="closeIV({force:true})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="iv-header" id="iv-hdr"></div>
+    <div class="iv-content" id="iv-body"></div>
+  </div>
+</div>
+
+<!-- 영상 모달 -->
+<div id="vid-modal" class="vid-modal" onclick="closeVid(event)">
+  <div style="width:min(880px,92vw);aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative">
+    <iframe id="yt-frame" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;display:block"></iframe>
+  </div>
+  <button class="vid-close" onclick="closeVid({force:true})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+</div>
+
+<script>
+var CATS = [{id:'all',label:'전체'},{id:'ai',label:'AI·LLM'},{id:'sw',label:'Software'},{id:'data',label:'Data·Database'},{id:'soc',label:'SoC·반도체'},{id:'hw',label:'Hardware'},{id:'pqa',label:'Product·QA'},{id:'biz',label:'Business'},{id:'mgmt',label:'경영지원'},{id:'pm',label:'PM'}];
+var BASE = 'https://dno.career.greetinghr.com/ko/o/';
+
+var COMMON_BENEFIT = ['주식매수선택권(스톡옵션)','자율 출퇴근제','최신 장비 지원','도서 구매비 지원','연차 자유 사용','4대 보험 완비','정기 건강검진','팀 워크샵 지원'];
+
+var JD = {
+  '199582':{intro:'Seahorse VDPU 및 Mnemos 엣지 AI 디바이스를 위한 LLM 추론 최적화 및 AI 서비스 아키텍처를 설계·개발합니다.',tasks:['LLM 추론 파이프라인 설계 및 VDPU 특화 최적화','RAG, Fine-tuning 파이프라인 구축 및 운영','온디바이스 LLM 배포 최적화 (Mnemos 플랫폼)','LLM 평가 체계 및 Prompt Engineering 시스템 구축','글로벌 파트너사 기술 대응 및 데모 개발'],reqs:['LLM/Transformer 아키텍처에 대한 깊은 이해','PyTorch, HuggingFace, vLLM 등 LLM 프레임워크 실무 경험','CUDA / 이종 컴퓨팅 환경에서의 모델 최적화 경험','ML 엔지니어링 또는 AI 연구 경력 3년 이상'],pref:['VDPU / NPU 등 AI 특화 하드웨어 경험','CXL 기반 메모리 시스템 이해','Vector DB 연동 및 RAG 시스템 설계 경험']},
+  '165253':{intro:'AI 기반 반도체·데이터 인프라 솔루션의 국내외 영업 및 기술 지원을 담당하며, 고객사와의 기술 파트너십을 구축합니다.',tasks:['Seahorse Vector DB 및 VDPU 솔루션 기술 영업','고객사 PoC 기획 및 기술 지원 (Pre/Post Sales)','글로벌 파트너 발굴 및 채널 관리','기술 데모 시나리오 개발 및 발표','시장 동향 분석 및 경쟁사 분석'],reqs:['AI/반도체/데이터 인프라 분야 영업 또는 BD 경력 3년 이상','기술 솔루션에 대한 이해와 고객 커뮤니케이션 능력','영어 비즈니스 커뮤니케이션 가능'],pref:['벡터 DB 또는 AI 인프라 솔루션 영업 경험','반도체 또는 HPC 시장 네트워크 보유','기술 PM 또는 솔루션 아키텍트 경험']},
+  '189035':{intro:'AI·반도체 신사업 발굴 및 전략적 파트너십 구축을 통해 디노티시아의 비즈니스 확장을 주도합니다.',tasks:['신규 사업 기회 발굴 및 사업화 전략 수립','전략적 파트너십 협상 및 계약 관리','투자자 IR 자료 준비 및 투자 유치 지원','시장 조사 및 비즈니스 케이스 개발'],reqs:['IT/반도체/AI 분야 사업개발 또는 전략 기획 경력 3년 이상','데이터 기반 의사결정 능력','영어 비즈니스 협상 가능'],pref:['스타트업 또는 벤처 투자 경험','글로벌 파트너십 딜 클로징 경험']},
+  '199780':{intro:'Seahorse VDPU 및 Mnemos를 구동하는 핵심 소프트웨어 스택의 아키텍처를 설계하고, 개발 조직을 기술적으로 리드합니다.',tasks:['전사 소프트웨어 아키텍처 설계 및 기술 로드맵 수립','Core SW 팀 기술 리드 및 코드 리뷰','VDPU 드라이버, 펌웨어, 런타임 스택 통합 설계','성능 최적화 및 메모리 관리 전략 수립','신규 입사자 온보딩 및 기술 멘토링'],reqs:['시스템 소프트웨어 또는 임베디드 시스템 경력 7년 이상','Linux 커널, 드라이버, 펌웨어 아키텍처 전반에 대한 이해','팀 리드 또는 Tech Lead 경험'],pref:['CXL / PCIe 기반 시스템 설계 경험','RISC-V 또는 커스텀 프로세서 환경 개발 경험','AI 가속기 SW 스택 경험']},
+  '198745':{intro:'Seahorse VDPU와 호스트 시스템을 연결하는 디바이스 드라이버를 개발하고, 시스템 통합 전반을 담당합니다.',tasks:['Linux 커널 디바이스 드라이버 개발 (PCIe/CXL)','VDPU DMA, 인터럽트, 메모리 맵 설계 및 구현','사용자 공간 라이브러리와의 인터페이스 설계','드라이버 디버깅 및 성능 최적화'],reqs:['Linux 커널 드라이버 개발 경력 3년 이상','PCIe 또는 CXL 프로토콜 이해','C 언어 시스템 프로그래밍 숙련'],pref:['AI 가속기 또는 커스텀 ASIC 드라이버 개발 경험','IOMMU, DMA-BUF 등 메모리 서브시스템 이해']},
+  '198793':{intro:'Mnemos 및 Seahorse 호스트 시스템의 Tool·Virtual Platform 펌웨어를 개발하여 하드웨어-소프트웨어 통합 환경을 구축합니다.',tasks:['가상 플랫폼 기반 펌웨어 개발 및 검증','호스트 툴체인 및 디버그 인프라 개발','FPGA 기반 플랫폼 보드 bring-up 지원'],reqs:['임베디드 펌웨어 개발 경력 3년 이상','C/C++ 기반 베어메탈 또는 RTOS 개발 경험','가상화 또는 에뮬레이션 환경 이해'],pref:['QEMU 또는 Fast Model 기반 개발 경험','JTAG 디버깅 및 trace 분석 경험']},
+  '198795':{intro:'Mnemos 엣지 AI 디바이스의 플랫폼 전반 관리(전원, 보안, 부트) 펌웨어를 설계하고 구현합니다.',tasks:['전원 관리 (PMIC 제어, 저전력 모드) 펌웨어 개발','보안 부트 및 신뢰 실행 환경(TEE) 구현','시스템 초기화 및 부트로더 개발','펌웨어 업데이트(OTA) 메커니즘 설계'],reqs:['플랫폼 관리 펌웨어 또는 시큐리티 펌웨어 경력 3년 이상','ARM TrustZone 또는 RISC-V PMP 이해','저전력 설계 및 전원 시퀀싱 경험'],pref:['TPM, Secure Enclave 경험','OTA 업데이트 시스템 설계 경험']},
+  '198789':{intro:'Seahorse 및 Mnemos의 핵심 프로세서인 RISC-V SoC 상에서 동작하는 펌웨어를 개발합니다.',tasks:['RISC-V 기반 SoC 펌웨어 개발 및 최적화','CXL 컨트롤러 펌웨어 통합','인터럽트 핸들링 및 메모리 관리 구현','HAL(Hardware Abstraction Layer) 설계'],reqs:['RISC-V 또는 ARM 기반 펌웨어 개발 경력 3년 이상','어셈블리 수준 디버깅 능력','SoC bring-up 경험'],pref:['CXL / NVMe 프로토콜 스택 구현 경험','RISC-V 명세 및 확장(RVV 등) 이해']},
+  '198531':{intro:'Seahorse VDPU의 벡터 연산 커널 및 라이브러리를 최적화하여 AI 추론 성능을 극대화합니다.',tasks:['VDPU 특화 벡터 연산 커널 최적화','SIMD/벡터 명령어셋 활용 알고리즘 구현','메모리 대역폭 및 레이턴시 분석·개선','프로파일링 및 핫스팟 튜닝'],reqs:['고성능 컴퓨팅 또는 컴파일러 최적화 경력 3년 이상','SIMD (AVX, NEON, RVV) 프로그래밍 경험','캐시·메모리 계층 이해'],pref:['AI 추론 엔진 최적화 경험 (TensorRT, ONNX Runtime 등)','어셈블리 수준 최적화 경험']},
+  '161033':{intro:'Seahorse 및 Mnemos 전체 시스템 아키텍처를 설계하며, 하드웨어-소프트웨어 공동 설계(HW/SW Co-design)를 주도합니다.',tasks:['CXL / PIM 기반 시스템 아키텍처 설계','HW/SW 인터페이스 정의 및 스펙 문서화','성능 모델링 및 마이크로아키텍처 검증','IP 파트너사 기술 협의 및 인터페이스 정의'],reqs:['시스템 아키텍처 설계 경력 7년 이상','메모리 서브시스템 및 인터커넥트 아키텍처 이해','SoC 또는 AI 가속기 설계 배경'],pref:['CXL 3.0 또는 PCIe 6.x 스펙 이해','PIM / Near-Memory Computing 경험']},
+  '199727':{intro:'Seahorse VDPU에서 동작하는 고성능 벡터 처리 라이브러리를 설계하고 구현합니다.',tasks:['VDPU 타깃 벡터 라이브러리 설계 및 구현','ANN(근사 최근접 이웃) 알고리즘 최적화','FAISS, ScaNN 등 오픈소스 통합 및 커스터마이징','Python/C++ 바인딩 개발'],reqs:['벡터 수학 및 SIMD 프로그래밍 경력 3년 이상','ANN 알고리즘 (HNSW, IVF 등) 구현 경험','C++17 이상 숙련'],pref:['Vector DB 또는 임베딩 검색 시스템 경험','CUDA 또는 커스텀 하드웨어 가속 경험']},
+  '198903':{intro:'Seahorse Vector DB의 영구 저장소 레이어를 담당하며, 고성능 스토리지 시스템 소프트웨어를 설계·개발합니다.',tasks:['분산 스토리지 엔진 설계 및 구현','NVMe / CXL 기반 스토리지 최적화','WAL, 체크포인트, 복구 메커니즘 개발','I/O 스케줄링 및 캐시 정책 구현'],reqs:['스토리지 시스템 또는 DB 엔진 개발 경력 3년 이상','파일시스템 또는 블록 디바이스 레이어 이해','C++ 또는 Rust 숙련'],pref:['RocksDB, LevelDB 등 LSM-tree 기반 스토리지 경험','CXL 메모리 시멘틱스 이해']},
+  '200913':{intro:'Seahorse 벡터 데이터베이스의 쿼리 엔진 및 인덱싱 레이어를 개발하여 초고속 벡터 검색을 실현합니다.',tasks:['벡터 인덱스 (HNSW, IVF, PQ) 설계 및 구현','분산 쿼리 처리 엔진 개발','VDPU 가속을 활용한 쿼리 파이프라인 최적화','클라이언트 SDK 및 API 설계 (gRPC, REST)'],reqs:['데이터베이스 엔진 또는 검색 시스템 개발 경력 3년 이상','벡터 검색 알고리즘 이해','분산 시스템 설계 경험'],pref:['Milvus, Qdrant, Weaviate 등 Vector DB 기여 경험','Rust 또는 C++ 숙련']},
+  '196737':{intro:'Seahorse VDPU SoC의 기능 및 구조적 검증을 담당하며, 테이프아웃 전 품질을 보증합니다.',tasks:['SystemVerilog / UVM 기반 Testbench 개발','Coverage-driven Verification 계획 수립 및 실행','RTL 시뮬레이션 및 포멀 검증','FPGA 기반 Pre-silicon 검증 지원','DV 환경 자동화 스크립트 개발'],reqs:['ASIC DV 경력 3년 이상','UVM 방법론 실무 경험','SystemVerilog 숙련'],pref:['CXL / PCIe IP 검증 경험','형식 검증 (Jasper, VC Formal) 경험']},
+  '196734':{intro:'Seahorse VDPU 및 SoC 통합 칩의 RTL 설계를 담당하며, 마이크로아키텍처부터 합성까지 전 과정을 주도합니다.',tasks:['SystemVerilog RTL 설계 및 최적화','마이크로아키텍처 정의 및 스펙 작성','합성(Synthesis) 및 타이밍 분석','벡터 처리 유닛 및 메모리 인터페이스 설계','DV 팀과 협력한 검증 지원'],reqs:['ASIC RTL 설계 경력 3년 이상','Verilog / SystemVerilog 숙련','합성 및 STA 이해'],pref:['CXL 3.0 또는 HBM 인터페이스 설계 경험','저전력 설계 기법 (클락 게이팅, 파워 도메인) 이해']},
+  '203021':{intro:'VDPU SoC 위에서 동작하는 펌웨어를 개발하여 하드웨어 초기화, 런타임 제어, 성능 모니터링을 구현합니다.',tasks:['SoC 펌웨어 아키텍처 설계 및 구현','하드웨어 초기화 (Bring-up) 및 진단 루틴 개발','런타임 성능 모니터링 및 에러 핸들링','호스트 드라이버와의 통신 프로토콜 구현'],reqs:['SoC 펌웨어 또는 임베디드 SW 경력 3년 이상','C 언어 베어메탈 프로그래밍 숙련','SoC bring-up 경험'],pref:['RISC-V MCU 펌웨어 개발 경험','PCIe DMA 또는 Mailbox 통신 구현 경험']},
+  '203022':{intro:'Seahorse 및 Mnemos 하드웨어 플랫폼의 패키지 및 PCB 설계를 담당하며, 고속 신호 무결성을 확보합니다.',tasks:['멀티레이어 PCB 설계 (HBM, PCIe 5.0, CXL)','패키지 기판 설계 및 Co-design','SI/PI 시뮬레이션 및 EMC 검증','보드 bring-up 및 하드웨어 디버깅','제조사 협력 및 DFM 검토'],reqs:['PCB 또는 패키지 설계 경력 3년 이상','고속 신호 설계 (25Gbps 이상) 경험','Allegro, ADS 등 EDA 툴 사용 능력'],pref:['HBM 또는 LPDDR5 인터페이스 설계 경험','ASIC 패키지 Co-design 경험']},
+  '202104':{intro:'Seahorse Vector DB 및 VDPU 하드웨어 통합 제품의 품질 보증을 담당하며, 시스템 통합 테스트를 설계·실행합니다.',tasks:['HW/SW 통합 테스트 계획 수립 및 실행','Vector DB 성능 및 정확도 검증','자동화 테스트 프레임워크 개발','버그 트래킹 및 품질 지표 관리','릴리즈 프로세스 수립'],reqs:['QA 엔지니어링 경력 3년 이상','시스템 통합 테스트 경험','Python 또는 Go 기반 테스트 자동화 능력'],pref:['AI/ML 시스템 품질 검증 경험','하드웨어 통합 테스트 경험']},
+  '204548':{intro:'Seahorse 및 Mnemos 제품의 로드맵, 포지셔닝, 가격 전략을 수립하며, 기술과 시장의 연결 고리를 담당합니다.',tasks:['제품 로드맵 기획 및 우선순위 정의','시장 분석 및 경쟁사 벤치마킹','고객 요구사항 수집 및 기능 스펙 정의','영업/엔지니어링 팀 간 조율','제품 론칭 전략 및 GTM 계획 수립'],reqs:['B2B 기술 제품 PM 또는 제품 전략 경력 3년 이상','AI 또는 데이터 인프라 제품 이해','데이터 기반 의사결정 능력'],pref:['반도체 또는 AI 인프라 시장 도메인 지식','엔지니어링 배경 또는 기술 PM 경험']},
+  '203898':{intro:'R&D 프로젝트의 일정·리소스·리스크를 관리하며, VDPU 및 Seahorse 개발 조직의 실행력을 높입니다.',tasks:['프로젝트 계획 수립, WBS 관리 및 일정 추적','크로스펑셔널 팀 조율 (HW, FW, SW, QA)','리스크 식별 및 완화 계획 수립','스테이크홀더 커뮤니케이션 및 보고','개발 프로세스 개선 (Agile/Scrum)'],reqs:['R&D 또는 HW/SW 개발 PM 경력 3년 이상','반도체 또는 AI 개발 프로세스 이해','PMP 또는 Agile 자격증 우대'],pref:['SoC 또는 AI 칩 개발 PM 경험','TSMC 테이프아웃 경험 있는 조직 PM 경험']},
+  '196744':{intro:'디노티시아의 성장 전략 및 신사업 기획을 담당하며, 경영진의 전략적 의사결정을 지원합니다.',tasks:['단·중·장기 사업 전략 수립','IR 자료 및 투자 관련 문서 작성','시장 분석 및 경쟁 환경 조사','전략적 파트너십 및 M&A 기회 검토'],reqs:['전략 컨설팅 또는 사업 기획 경력 3년 이상','재무 모델링 및 데이터 분석 능력','영어 보고서 작성 가능'],pref:['반도체 또는 AI 인프라 산업 이해','Series A/B 스타트업 전략 기획 경험']},
+  '199008':{intro:'[전문연구요원] Seahorse VDPU 기반 LLM 추론 최적화 연구 및 AI 모델 서빙 시스템을 개발합니다.',tasks:['LLM 추론 최적화 연구 (Quantization, Pruning)','VDPU 타깃 LLM 커널 개발','벡터 임베딩 파이프라인 구현','연구 결과 논문화 및 특허 출원'],reqs:['AI/ML 관련 석사 이상 (병역 지정 업체 편입 가능자)','PyTorch 기반 모델 학습 및 추론 구현 경험','LLM 아키텍처 이해'],pref:['GPU/NPU 커널 최적화 경험','ICML, NeurIPS, ICLR 등 논문 게재 경험']},
+  '201960':{intro:'[전문연구요원] Seahorse VDPU와 호스트를 연결하는 Linux 디바이스 드라이버를 연구·개발합니다.',tasks:['Linux 커널 드라이버 연구 개발','PCIe/CXL DMA 및 인터럽트 처리 구현','드라이버 성능 분석 및 최적화'],reqs:['전산/전기전자 관련 석사 이상 (병역 편입 가능자)','Linux 커널 또는 시스템 프로그래밍 경험','C 언어 숙련'],pref:['PCIe 또는 CXL 프로토콜 이해','디바이스 드라이버 인턴/연구 경험']},
+  '201963':{intro:'[전문연구요원] RISC-V 기반 SoC 펌웨어 연구 및 가상 플랫폼 기반 개발 환경을 구축합니다.',tasks:['RISC-V SoC 펌웨어 연구 개발','가상 플랫폼(QEMU) 기반 검증 환경 구축','펌웨어 보안 및 신뢰 실행 환경 연구'],reqs:['전산/전기전자 관련 석사 이상 (병역 편입 가능자)','임베디드 C 프로그래밍 경험','RTOS 또는 운영체제 기초 이해'],pref:['RISC-V 아키텍처 과목 이수 또는 연구 경험']},
+  '201957':{intro:'[전문연구요원] VDPU 벡터 연산 커널 최적화 연구를 통해 AI 추론 성능을 극대화합니다.',tasks:['SIMD 기반 벡터 커널 최적화 연구','컴파일러 자동 벡터화 연구','ANN 알고리즘 하드웨어 가속 연구'],reqs:['전산/전기전자 관련 석사 이상 (병역 편입 가능자)','C/C++ 숙련','컴퓨터 아키텍처 기초 이해'],pref:['SIMD 프로그래밍 또는 HPC 연구 경험']},
+  '199037':{intro:'[전문연구요원] CXL/PIM 기반 차세대 메모리 아키텍처를 연구하며 Seahorse 시스템 구조를 설계합니다.',tasks:['CXL 메모리 시멘틱스 및 프로토콜 연구','PIM 아키텍처 성능 모델링','HW/SW 인터페이스 스펙 연구'],reqs:['전산/전기전자 관련 석사 이상 (병역 편입 가능자)','컴퓨터 아키텍처 이해','Python 또는 C++ 경험'],pref:['메모리 시스템 또는 캐시 아키텍처 연구 경험']},
+  '199731':{intro:'[전문연구요원] VDPU 특화 고성능 벡터 라이브러리를 연구·개발합니다.',tasks:['벡터 인덱스 알고리즘 연구 (HNSW, IVF)','VDPU 타깃 라이브러리 최적화','벤치마크 설계 및 성능 평가'],reqs:['전산 관련 석사 이상 (병역 편입 가능자)','C++ 숙련','알고리즘 및 자료구조 이해'],pref:['근사 최근접 이웃 알고리즘 연구 경험']},
+  '199018':{intro:'[전문연구요원] CXL 기반 고성능 스토리지 시스템 소프트웨어를 연구합니다.',tasks:['NVMe/CXL 스토리지 I/O 스택 연구','LSM-tree 기반 스토리지 엔진 연구','분산 스토리지 일관성 모델 연구'],reqs:['전산 관련 석사 이상 (병역 편입 가능자)','파일시스템 또는 DB 과목 이수','C++ 또는 Rust 경험'],pref:['RocksDB 또는 스토리지 엔진 연구 경험']},
+  '199029':{intro:'[전문연구요원] Seahorse 벡터 데이터베이스의 쿼리 엔진 및 분산 처리 시스템을 연구·개발합니다.',tasks:['분산 Vector DB 쿼리 엔진 연구','인덱싱 및 필터링 최적화 연구','VDPU 가속 연동 설계'],reqs:['전산 관련 석사 이상 (병역 편입 가능자)','데이터베이스 과목 이수','Python 또는 C++ 경험'],pref:['Vector DB 또는 분산 DB 연구 경험']},
+  '150213':{intro:'[전문연구요원] VDPU SoC의 기능 검증 방법론을 연구하며, UVM 기반 검증 환경을 구축합니다.',tasks:['UVM Testbench 설계 연구','Coverage-driven Verification 방법론 연구','형식 검증 기법 연구'],reqs:['전기전자 관련 석사 이상 (병역 편입 가능자)','디지털 회로 설계 과목 이수','Verilog/SystemVerilog 기초'],pref:['ASIC 검증 인턴 또는 연구 경험']},
+  '150214':{intro:'[전문연구요원] Seahorse VDPU의 RTL 설계 및 마이크로아키텍처를 연구합니다.',tasks:['RTL 설계 방법론 연구','벡터 처리 유닛 마이크로아키텍처 연구','합성 및 타이밍 최적화 연구'],reqs:['전기전자 관련 석사 이상 (병역 편입 가능자)','Verilog/SystemVerilog 경험','디지털 설계 과목 이수'],pref:['ASIC 설계 인턴 또는 RTL 연구 경험']},
+  '150215':{intro:'[전문연구요원] CXL 기반 SoC 아키텍처 및 벡터 처리 유닛 설계를 연구합니다.',tasks:['SoC 통합 아키텍처 연구','CXL 컨트롤러 설계 연구','전력·성능·면적 최적화 연구'],reqs:['전기전자 관련 석사 이상 (병역 편입 가능자)','컴퓨터 아키텍처 또는 VLSI 과목 이수'],pref:['SoC 설계 관련 연구 경험']}
+};
+
+var JOBS = [
+  {t:'[AI] LLM Engineer',                            c:['ai'],        tp:'정규직',       lv:'Senior',       url:BASE+'199582', id:'199582'},
+  {t:'[Business] AI Field Engineer',                 c:['ai','biz'],  tp:'정규직',       lv:'Senior·Lead',  url:BASE+'165253', id:'165253'},
+  {t:'[Business] AI 사업개발',                        c:['biz'],       tp:'정규직',       lv:'Senior',       url:BASE+'189035', id:'189035'},
+  {t:'[Core] Software Lead',                         c:['sw'],        tp:'정규직',       lv:'Lead',         url:BASE+'199780', id:'199780'},
+  {t:'[Core] Device Driver SW Engineer',             c:['sw'],        tp:'정규직',       lv:'Senior',       url:BASE+'198745', id:'198745'},
+  {t:'[Core] Firmware SW Engineer (Host Tools)',     c:['sw'],        tp:'정규직',       lv:'Senior',       url:BASE+'198793', id:'198793'},
+  {t:'[Core] Firmware SW Engineer (PM & Security)',  c:['sw'],        tp:'정규직',       lv:'Senior',       url:BASE+'198795', id:'198795'},
+  {t:'[Core] Firmware SW Engineer (RISC-V SoC)',     c:['sw'],        tp:'정규직',       lv:'Senior',       url:BASE+'198789', id:'198789'},
+  {t:'[Core] Optimization Engineer',                 c:['sw'],        tp:'정규직',       lv:'Senior',       url:BASE+'198531', id:'198531'},
+  {t:'[Core] System Architect',                      c:['sw'],        tp:'정규직',       lv:'Lead',         url:BASE+'161033', id:'161033'},
+  {t:'[Core] Vector Library Engineer',               c:['sw','data'], tp:'정규직',       lv:'Senior',       url:BASE+'199727', id:'199727'},
+  {t:'[Data] Storage System SW Engineer',            c:['data'],      tp:'정규직',       lv:'Senior·Lead',  url:BASE+'198903', id:'198903'},
+  {t:'[Data] Vector Database Engineer',              c:['data'],      tp:'정규직',       lv:'Senior',       url:BASE+'200913', id:'200913'},
+  {t:'[SoC] Design Verification Engineer',           c:['soc'],       tp:'정규직',       lv:'Senior',       url:BASE+'196737', id:'196737'},
+  {t:'[SoC] SoC / RTL Design Engineer',              c:['soc'],       tp:'정규직',       lv:'Senior·Lead',  url:BASE+'196734', id:'196734'},
+  {t:'[SoC] SoC Firmware Engineer',                  c:['soc'],       tp:'정규직',       lv:'Senior',       url:BASE+'203021', id:'203021'},
+  {t:'[SoC] SoC PKG / Board HW Engineer',            c:['soc','hw'],  tp:'정규직',       lv:'Senior·Lead',  url:BASE+'203022', id:'203022'},
+  {t:'[Product] QA Engineer',                        c:['hw','pqa'],  tp:'정규직',       lv:'Senior',       url:BASE+'202104', id:'202104'},
+  {t:'[Product] 제품전략 매니저',                     c:['pqa','biz'], tp:'정규직',       lv:'Senior·Lead',  url:BASE+'204548', id:'204548'},
+  {t:'[Project] R&D 프로젝트 매니저',                c:['pm'],        tp:'정규직',       lv:'Senior·Lead',  url:BASE+'203898', id:'203898'},
+  {t:'[Strategy] 전략',                              c:['mgmt'],      tp:'정규직',       lv:'Senior',       url:BASE+'196744', id:'196744'},
+  {t:'[전문연구요원] LLM Engineer',                   c:['ai'],        tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'199008', id:'199008'},
+  {t:'[전문연구요원] Device Driver SW Engineer',      c:['sw'],        tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'201960', id:'201960'},
+  {t:'[전문연구요원] Firmware SW Engineer',           c:['sw'],        tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'201963', id:'201963'},
+  {t:'[전문연구요원] Optimization Engineer',          c:['sw'],        tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'201957', id:'201957'},
+  {t:'[전문연구요원] System Architect',               c:['sw'],        tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'199037', id:'199037'},
+  {t:'[전문연구요원] Vector Library Engineer',        c:['sw','data'], tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'199731', id:'199731'},
+  {t:'[전문연구요원] Storage System SW Engineer',     c:['data'],      tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'199018', id:'199018'},
+  {t:'[전문연구요원] Vector Database Engineer',       c:['data'],      tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'199029', id:'199029'},
+  {t:'[전문연구요원] Design Verification Engineer',   c:['soc'],       tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'150213', id:'150213'},
+  {t:'[전문연구요원] RTL Design Engineer',            c:['soc'],       tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'150214', id:'150214'},
+  {t:'[전문연구요원] SoC Design Engineer',            c:['soc'],       tp:'전문연구요원', lv:'Junior·Senior',url:BASE+'150215', id:'150215'}
+];
+
+function catLabel(id){for(var i=0;i<CATS.length;i++){if(CATS[i].id===id)return CATS[i].label;}return id;}
+
+var active = {all:true};
+function renderCats(){var h='';for(var i=0;i<CATS.length;i++){var c=CATS[i];h+='<button class="cat-btn'+(active[c.id]?' active':'')+'" onclick="toggleCat(\''+c.id+'\')">'+c.label+'</button>';}document.getElementById('cat-wrap').innerHTML=h;}
+function renderJobGrid(){
+  var isAll=!!active.all;var visible=[];
+  for(var i=0;i<JOBS.length;i++){var j=JOBS[i];if(isAll){visible.push(j);continue;}for(var k=0;k<j.c.length;k++){if(active[j.c[k]]){visible.push(j);break;}}}
+  visible.sort(function(a,b){return(a.tp==='전문연구요원'?1:0)-(b.tp==='전문연구요원'?1:0);});
+  document.getElementById('job-count').textContent=visible.length+'개 포지션';
+  var h='';
+  for(var i=0;i<visible.length;i++){
+    var j=visible[i];var tags='';for(var k=0;k<j.c.length;k++)tags+='<span class="jcat-tag">'+catLabel(j.c[k])+'</span> ';
+    h+='<div class="jcard" onclick="openJD(\''+j.id+'\',\''+j.t.replace(/'/g,"\\'")+'\',\''+j.tp+'\',\''+j.url+'\',this)">'
+      +'<div><p style="font-size:15px;font-weight:700;color:#e8e8e8;line-height:1.4;margin-bottom:6px">'+j.t+'</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:4px">'+tags+'</div></div>'
+      +'<div class="jcard-footer"><div style="display:flex;gap:10px">'
+      +'<span class="jcard-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><polyline points="16 2 12 6 8 2"/></svg> '+j.tp+'</span>'
+      +'<span class="jcard-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> '+j.lv+'</span>'
+      +'</div><span style="font-size:11px;color:#555;font-weight:600;display:flex;align-items:center;gap:3px">상세보기 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>'
+      +'</div></div>';
+  }
+  document.getElementById('job-grid').innerHTML=h;
+}
+function toggleCat(id){if(id==='all'){active={all:true};}else{delete active.all;if(active[id])delete active[id];else active[id]=true;var has=false;for(var k in active){has=true;break;}if(!has)active={all:true};}renderCats();renderJobGrid();}
+renderCats();renderJobGrid();
+
+// ── JD 팝업 ──
+function openJD(id, title, type, url, el) {
+  var d = JD[id];
+  document.getElementById('jd-popup-title').textContent = title;
+  document.getElementById('jd-type-badge').textContent = type === '전문연구요원' ? '전문연구요원 병역특례' : '정규직';
+  document.getElementById('jd-apply-link').href = url;
+
+  // cat badges
+  var job = null; for(var i=0;i<JOBS.length;i++){if(JOBS[i].id===id){job=JOBS[i];break;}}
+  var catHtml = '';
+  if(job){for(var k=0;k<job.c.length;k++)catHtml+='<span class="jcat-tag">'+catLabel(job.c[k])+'</span>';}
+  document.getElementById('jd-cat-badges').innerHTML = catHtml;
+
+  var body = '';
+  if(d){
+    body += '<div class="jd-section"><p class="jd-section-title">직무 소개</p><p class="jd-intro">'+d.intro+'</p></div>';
+    body += '<div class="jd-section"><p class="jd-section-title">주요 업무</p><ul class="jd-list">';
+    for(var i=0;i<d.tasks.length;i++)body+='<li>'+d.tasks[i]+'</li>';
+    body += '</ul></div>';
+    body += '<div class="jd-section"><p class="jd-section-title">자격 요건</p><ul class="jd-list">';
+    for(var i=0;i<d.reqs.length;i++)body+='<li>'+d.reqs[i]+'</li>';
+    body += '</ul></div>';
+    body += '<div class="jd-section"><p class="jd-section-title">우대 사항</p><ul class="jd-list">';
+    for(var i=0;i<d.pref.length;i++)body+='<li>'+d.pref[i]+'</li>';
+    body += '</ul></div>';
+  }
+
+
+  document.getElementById('jd-popup-body').innerHTML = body;
+  document.getElementById('jd-popup-body').scrollTop = 0;
+  document.getElementById('jd-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeJD(e){if(e&&(e.force||e.target===document.getElementById('jd-modal'))){document.getElementById('jd-modal').classList.remove('open');document.body.style.overflow='';}}
+
+// ── 인터뷰 ──
+var IV_DATA=[
+  {name:'김○○',role:'수석 설계 엔지니어',prev:'前 삼성전자 DS부문 · 7년',init:'김',qas:[{q:'대기업에서도 좋은 평가를 받고 있었는데, 왜 디노티시아를 선택하셨나요?',a:'대기업에서 3년을 일했는데, 제 코드가 실제 칩에 들어가는 데 1년이 걸렸어요. 검토, 승인, 재검토… 설계자가 아니라 서류 담당자가 된 느낌이었죠. 디노티시아에서는 제가 작성한 RTL이 2주 안에 시뮬레이션 결과로 돌아옵니다. 이 속도감은 돈으로 환산할 수 없어요.'},{q:'합류 후 가장 크게 달라진 점이 있다면?',a:'결정을 위한 회의가 없습니다. 제가 설계하고, 검증하고, 고객과 직접 논의합니다. 내 이름이 붙은 칩이 세상에 나간다는 것, 그게 가장 큰 변화입니다.'}]},
+  {name:'이○○',role:'시니어 PD 엔지니어',prev:'前 SK하이닉스 DRAM 설계 · 5년',init:'이',qas:[{q:'성과급 격차가 크지 않으셨나요? 현실적으로 어떻게 결정하셨는지 궁금합니다.',a:'솔직히 연봉 협상 테이블에서 저도 망설였습니다. 그런데 CTO가 "이 칩이 양산되면 당신의 이름이 레퍼런스에 들어간다"고 했을 때, 계산이 바뀌었어요. 스톡옵션 가치가 실현되는 날을 상상했고, 그게 저만의 성과급이 된 거죠.'},{q:'PD 엔지니어 입장에서 디노티시아만의 강점은?',a:'TSMC 5nm 공정을 직접 다룰 수 있다는 것 자체가 커리어 레벨업입니다. Back-end 전 과정을 제가 주도합니다. 제 손으로 완성한 칩이 양산라인에 투입되는 경험은 정말 다릅니다.'}]},
+  {name:'박○○',role:'리드 아키텍트',prev:'前 NVIDIA 코리아 · 4년',init:'박',qas:[{q:'스타트업 리스크가 두렵지 않으셨나요?',a:'리스크를 없애려는 마음이 오히려 가장 큰 리스크라는 걸 깨달았습니다. 대기업에서 10년을 보내면 특정 공정의 일부분 전문가가 됩니다. 지금 저는 CXL 컨트롤러 전체를 오너십 가지고 설계하고 있어요. 이 커리어 경험 자체가 제 리스크 헷지입니다.'},{q:'아키텍트로서 CXL·PIM 기술을 직접 다루는 건 어떤가요?',a:'CXL 3.0은 아직 전 세계적으로 레퍼런스가 많지 않습니다. 우리 팀은 이 기술의 첫 번째 상용 구현에 참여하고 있어요. 10년 후에 "나는 그 기술의 출발점에 있었다"고 말할 수 있다는 게 엔지니어로서 최고의 보상입니다.'}]}
+];
+function openIV(idx){var d=IV_DATA[idx];document.getElementById('iv-hdr').innerHTML='<div class="iv-avatar">'+d.init+'</div><div><p style="font-size:18px;font-weight:800;color:#f5f5f5;margin-bottom:3px">'+d.name+'</p><p style="font-size:13px;color:#888;margin-bottom:2px">'+d.role+'</p><p style="font-size:12px;color:#444">'+d.prev+'</p></div>';var b='';for(var i=0;i<d.qas.length;i++)b+='<div class="iv-qblock"><div class="iv-q"><span class="iv-qbadge">Q</span>'+d.qas[i].q+'</div><p class="iv-a">"'+d.qas[i].a+'"</p></div>';document.getElementById('iv-body').innerHTML=b;document.getElementById('iv-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeIV(e){if(e&&(e.force||e.target===document.getElementById('iv-modal'))){document.getElementById('iv-modal').classList.remove('open');document.body.style.overflow='';}}
+
+// ── 영상 ──
+function openVid(){document.getElementById('yt-frame').src='https://www.youtube.com/embed/fHi82NdMYDQ?autoplay=1';document.getElementById('vid-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeVid(e){if(e&&(e.force||e.target===document.getElementById('vid-modal'))){document.getElementById('vid-modal').classList.remove('open');document.getElementById('yt-frame').src='';document.body.style.overflow='';}}
+
+// ── ESC ──
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeJD({force:true});closeIV({force:true});closeVid({force:true});}});
+
+// ── Scroll reveal ──
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('show');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
